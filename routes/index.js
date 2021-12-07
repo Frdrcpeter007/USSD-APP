@@ -15,26 +15,45 @@ router.post('/ussd', (req, res) => {
       text,
   } = req.body;
 
+  console.log("sessionId", sessionId);
+  console.log("serviceCode", serviceCode);
+
   let response = '';
 
   if (text == '') {
       // This is the first request. Note how we start the response with CON
-      response = `CON What would you like to check
-      1. My account
-      2. My phone number`;
+      response = `CON Veuillez selectionner un service:
+      1. Consulter les lois
+      2. Consulter les décrets 
+      3. Consulter les arrêtés
+      4. À la une du numérique
+      5. Contactez un juriste en droit du numérique`;
   } else if ( text == '1') {
       // Business logic for first level response
-      response = `CON Choose account information you want to view
-      1. Account number`;
+      response = `CON Catégorie "Loi du Numérique
+      1. Loi 1
+      2. Loi 2
+      3. Loi 3
+      4. Loi 4
+      5. Loi 5
+      
+      Taper 0# pour voir la suite de la liste`;
   } else if ( text == '2') {
-      // Business logic for first level response
-      // This is a terminal request. Note how we start the response with END
       response = `END Your phone number is ${phoneNumber}`;
   } else if ( text == '1*1') {
-      // This is a second level response where the user selected 1 in the first instance
-      const accountNumber = 'ACC100101';
-      // This is a terminal request. Note how we start the response with END
-      response = `END Your account number is ${accountNumber}`;
+     
+      response = `CON Enoncé de la loi:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
+      
+      1. Avoir explication (Français)
+      2. Avoir explication (Lingala)
+      3. Donnez votre avis`;
+
+  } else if ( text == '1*1*3') {
+    response = `CON Donnez votre avis sur:
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
+    
+    Votre avis:`
   }
 
   // Send the response back to the API
