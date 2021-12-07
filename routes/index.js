@@ -37,7 +37,7 @@ router.post('/ussd', (req, res) => {
       4. Loi 4
       5. Loi 5
       
-      Taper 0# pour voir la suite de la liste`;
+      0. Voir la suite de la liste`;
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
   } else if ( text == '1*1') {
