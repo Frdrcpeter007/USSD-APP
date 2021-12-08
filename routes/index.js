@@ -15,9 +15,27 @@ router.post('/ussd', (req, res) => {
         text,
     } = req.body;
 
-    let law = [{ id: 1, title: "Article 1", content: "Ceci est l'article 1 du bail" }, { id: 2, title: "Article 2", content: "Ceci est l'article 2 du bail" }, { id: 3, title: "Article 3", content: "Ceci est l'article 3 du bail" }, { id: 4, title: "Article 4", content: "Ceci est l'article 4 du bail" }, { id: 5, title: "Article 5", content: "Ceci est l'article 5 du bail" }],
-        decret = [{ id: 1, title: "Décret 1", content: "Ceci est le décret 1 du bail" }, { id: 2, title: "Décret 2", content: "Ceci est le décret 2 du bail" }, { id: 3, title: "Décret 3", content: "Ceci est le décret 3 du bail" }, { id: 4, title: "Décret 4", content: "Ceci est le décret 4 du bail" }, { id: 5, title: "Décret 5", content: "Ceci est le décret 5 du bail" }],
-        arret = [{ id: 1, title: "Arrêté 1", content: "Ceci est l'arrêté 1 du bail" }, { id: 2, title: "Arrêté 2", content: "Ceci est l'arrêté 2 du bail" }, { id: 3, title: "Arrêté 3", content: "Ceci est l'arrêté 3 du bail" }, { id: 4, title: "Arrêté 4", content: "Ceci est l'arrêté 4 du bail" }, { id: 5, title: "Arrêté 5", content: "Ceci est l'arrêté 5 du bail" }];
+    let law = [
+            { id: 1, title: "Law 1", content: "Ceci est l'article 1 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
+            { id: 2, title: "Law 2", content: "Ceci est l'article 2 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] },
+            { id: 3, title: "Law 3", content: "Ceci est l'article 3 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
+            { id: 4, title: "Law 4", content: "Ceci est l'article 4 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
+            { id: 5, title: "Law 5", content: "Ceci est l'article 5 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }
+        ],
+        decret = [
+            { id: 1, title: "Décret 1", content: "Ceci est le décret 1 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] },
+            { id: 2, title: "Décret 2", content: "Ceci est le décret 2 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
+            { id: 3, title: "Décret 3", content: "Ceci est le décret 3 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
+            { id: 4, title: "Décret 4", content: "Ceci est le décret 4 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
+            { id: 5, title: "Décret 5", content: "Ceci est le décret 5 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }
+        ],
+        arret = [
+            { id: 1, title: "Arrêté 1", content: "Ceci est l'arrêté 1 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
+            { id: 2, title: "Arrêté 2", content: "Ceci est l'arrêté 2 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
+            { id: 3, title: "Arrêté 3", content: "Ceci est l'arrêté 3 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
+            { id: 4, title: "Arrêté 4", content: "Ceci est l'arrêté 4 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
+            { id: 5, title: "Arrêté 5", content: "Ceci est l'arrêté 5 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}
+        ];
 
     let response = '';
 
@@ -41,10 +59,21 @@ router.post('/ussd', (req, res) => {
       0. Voir la suite de la liste`;
     } else if (/^[1|2|3]\*\d+$/g.test(text)) {
 
-        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [];
+        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [],
+            articles = tab[parseInt(text[0])].articles;
+        response = `CON Enoncé de la loi:
+
+        ${articles.map(item => `${item.id}. ${item.title}`).join('\n')}
+        
+        0. Voir la suite de la liste`;
+
+    } else if (/^[1|2|3]\*\d+\*\d+$/g.test(text)) {
+
+        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [],
+            articles = tab[parseInt(text[0])].articles;
 
         response = `CON Enoncé de la loi:
-      "${tab.find(item => item.id == text.split('*')[1]).content}"
+      "${articles.find(item => item.id == text.split('*')[2]).content}"
       
       1. Avoir explication (Français)
       2. Avoir explication (Lingala)
@@ -56,7 +85,7 @@ router.post('/ussd', (req, res) => {
         response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
 
     } else if (/^[1|2|3]\*\d+\*3$/g.test(text)) {
-        
+
         let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [];
         response = `CON Donnez votre avis sur:
     "${tab.find(item => item.id == text.split('*')[1]).content}"
