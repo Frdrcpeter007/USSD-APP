@@ -108,7 +108,7 @@ router.post('/ussd', (req, res) => {
         4. Demande de décision
         5. Autre`;
 
-    } else if (/^5\*[1-4]$/g.test(text) || /^5\*5\*\w+$/g.test(text)) {
+    } else if (/^5\*[1-4]$/g.test(text) || /^5\*5\*\w+/g.test(text)) {
 
         response = `END Un spécialiste en droit du numérique vous contactera dans les plus brefs délais`;
 
