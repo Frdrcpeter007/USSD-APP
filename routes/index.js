@@ -51,7 +51,7 @@ router.post('/ussd', (req, res) => {
 
   } else if ( text == '1*1*3') {
     response = `CON Donnez votre avis sur:
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
     
     Votre avis:`
   }
