@@ -107,8 +107,8 @@ router.post('/ussd', (req, res) => {
 
     } else if(/^4\*[0|1]$/g.test(text)) {
         
-        let text = text.split('*')[text.split('*').length - 1] == '0' ? 'Pas de newsletter, nous vous enverrons unique la dernière actu de cette semaine par SMS' : 'Vous recevrez la newsletter du numérique par SMS chaque fois que cela sera partagé !';
-        response = `END ${text}`;
+        let textResponse = text.split('*')[text.split('*').length - 1] == '0' ? 'Pas de newsletter, nous vous enverrons unique la dernière actu de cette semaine par SMS' : 'Vous recevrez la newsletter du numérique par SMS chaque fois que cela sera partagé !';
+        response = `END ${textResponse}`;
 
     } else if (text == '5') {
         
