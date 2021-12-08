@@ -45,7 +45,7 @@ router.post('/ussd', (req, res) => {
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
 
-  } else if (/^1\*(1-9)*$/g.test(text) ) {
+  } else if (/^1\*(1-9)*/g.test(text) ) {
 
       response = `CON Enoncé de la loi:
       "${tab.find(item => item.id == text.split('*')[1]).content}"
@@ -54,9 +54,13 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-  } else if (/^1\*1\*(1|2)$/g.test(text)) {
+  } else if (text == '1*1*1' ) {
 
-    response = `END Votre est en cours de traitement, nous vous enverrons très bien des explications de cette loi en ${text.split('*')[text.split('*').length - 1] == '1' ? 'Français' : 'Lingala'}`;
+    response = `END Votre est en cours de traitement, nous vous enverrons très bien des explications de cette loi en Français`;
+
+  } else if (text == '1*1*2' ) {
+
+    response = `END Votre est en cours de traitement, nous vous enverrons très bien des explications de cette loi en Lingala`;
 
   } else if ( text == '1*1*3') {
     response = `CON Donnez votre avis sur:
