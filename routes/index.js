@@ -59,6 +59,8 @@ router.post('/ussd', (req, res) => {
         response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
 
     } else if (/^[1|2|3]\*\d+\*3$/g.test(text)) {
+        
+        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [];
         response = `CON Donnez votre avis sur:
     "${tab.find(item => item.id == text.split('*')[1]).content}"
     
