@@ -45,7 +45,7 @@ router.post('/ussd', (req, res) => {
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
 
-  } else if (/^1\*(1-9)*/g.test(text) ) {
+  } else if (/^1\*(1-9)/g.test(text) ) {
 
       response = `CON Enoncé de la loi:
       "${tab.find(item => item.id == text.split('*')[1]).content}"
