@@ -60,7 +60,7 @@ router.post('/ussd', (req, res) => {
 
     } else if (/^[1|2|3]\*\d+\*3$/g.test(text)) {
         response = `CON Donnez votre avis sur:
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
+    "${tab.find(item => item.id == text.split('*')[1]).content}"
     
     Votre avis:`
     } else if (/^[1|2|3]\*\d+\*3\*\w+$/g.test(text)) {
@@ -70,6 +70,7 @@ router.post('/ussd', (req, res) => {
     Votre avis: "${review}"`;
 
     } else {
+        console.log(text);
         response = `END La commande entrée n'est pas correct, e-Mobeko à votre service pour vous expliciter les textes juridique concernant le numérique en RD Congo...`
     }
 
