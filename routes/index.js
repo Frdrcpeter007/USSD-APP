@@ -32,22 +32,28 @@ router.post('/ussd', (req, res) => {
       5. Contactez un juriste en droit du numérique`;
   } else if ( text == '1') {
       // Business logic for first level response
-      response = `CON Catégorie "Loi du Numérique
+      response = `CON Catégorie "Loi du Numérique"
       ${
             tab.map(item => `${item.id}. ${item.title}`).join('\n')
       }
       
       0. Voir la suite de la liste`;
+      
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
+
   } else if (/^1\*(1-9)*/g.test(text) ) {
-     console.log(text);
+
       response = `CON Enoncé de la loi:
       "${tab.find(item => item.id == text.split('*')[1]).content}"
 
       1. Avoir explication (Français)
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
+
+  } else if (/^1\*1\*(1|2)/g.test(text)) {
+
+    response = `END Votre est en cours de traitement, nous vous enverrons très bien des explications de cette loi en ${text.split('*')[text.split('*').length - 1] == '1' ? 'Français' : 'Lingala'}`;
 
   } else if ( text == '1*1*3') {
     response = `CON Donnez votre avis sur:
