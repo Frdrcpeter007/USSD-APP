@@ -98,6 +98,18 @@ router.post('/ussd', (req, res) => {
     
     Votre avis: "${review}"`;
 
+    } else if (text == '4') {
+        
+        response = `CON Souhaitez-vous être averti des dernières nouvelle du numérique ?: 
+        
+        0. Non
+        1. Oui`;
+
+    } else if(/^4\*[0|1]$/g.test(text)) {
+        
+        let text = text.split('*')[text.split('*').length - 1] == '0' ? 'Pas de newsletter, nous vous enverrons unique la dernière actu de cette semaine par SMS' : 'Vous recevrez la newsletter du numérique par SMS chaque fois que cela sera partagé !';
+        response = `END ${text}`;
+
     } else if (text == '5') {
         
         response = `CON Quel est l'objet de votre demande de contact: 
