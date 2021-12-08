@@ -54,7 +54,7 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-  } else if (/^1\*(1-9)\*1/g.test(text)) {
+  } else if (/^1\*1\*1/g.test(text)) {
 
     response = `END Votre est en cours de traitement, nous vous enverrons très bien des explications de cette loi en Français`;
 
