@@ -15,7 +15,7 @@ router.post('/ussd', (req, res) => {
       text,
   } = req.body;
 
-  let tab = [{id: 1, title: "Article 1", content: "Ceci est l'article 1"}, {id: 2, title: "Article 2", content: "Ceci est l'article 2"}, {id: 3, title: "Article 3", content: "Ceci est l'article 3"}];
+  let tab = [{id: 1, title: "Article 1"}, {id: 2, title: "Article 2"}, {id: 3, title: "Article 3"}];
 
   console.log("sessionId", sessionId);
   console.log("serviceCode", serviceCode);
@@ -32,7 +32,7 @@ router.post('/ussd', (req, res) => {
       5. Contactez un juriste en droit du numérique`;
   } else if ( text == '1') {
       // Business logic for first level response
-      response = `CON Catégorie "Loi du Numérique"
+      response = `CON Catégorie "Loi du Numérique
       ${
             tab.map(item => `${item.id}. ${item.title}`).join('\n')
       }
@@ -40,18 +40,18 @@ router.post('/ussd', (req, res) => {
       0. Voir la suite de la liste`;
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
-  } else if (/^1\*(1-9)$/g.test(text) ) {
-
+  } else if ( text == '1*1') {
+     
       response = `CON Enoncé de la loi:
-      "xxxxxxxxxxxxx"
-
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
+      
       1. Avoir explication (Français)
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
   } else if ( text == '1*1*3') {
     response = `CON Donnez votre avis sur:
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
     
     Votre avis:`
   }
