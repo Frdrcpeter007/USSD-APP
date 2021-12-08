@@ -53,7 +53,7 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-    } else if (/^[1|2|3]\*\d+\*\d+$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*[1|2]$/g.test(text)) {
 
         let language = text.split('*')[2] == '1' ? 'Français' : 'Lingala';
         response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
