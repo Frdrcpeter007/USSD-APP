@@ -98,6 +98,24 @@ router.post('/ussd', (req, res) => {
     
     Votre avis: "${review}"`;
 
+    } else if (text == '5') {
+        
+        response = `CON Quel est l'objet de votre demande de contact: 
+        
+        1. Demande d'information
+        2. Demande d'aide
+        3. Demande de conseil
+        4. Demande de décision
+        5. Autre`;
+
+    } else if (/^5\*[1-4]$/g.test(text) || /^5\*5\*\w+$/g.test(text)) {
+
+        response = `END Un spécialiste en droit du numérique vous contactera dans les plus brefs délais`;
+
+    } else if(/^5\*5$/g.test(text)) {
+        
+        response = `CON Taper l'objet votre demande de contact d'un juriste: `;
+
     } else {
         console.log(text);
         response = `END La commande entrée n'est pas correct, e-Mobeko à votre service pour vous expliciter les textes juridique concernant le numérique en RD Congo...`
