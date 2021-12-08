@@ -68,9 +68,7 @@ router.post('/ussd', (req, res) => {
     Votre avis: "${review}"`;
 
     } else {
-        response = `END La commande entrée ne repond pas
-    
-        Le numérique au coeur du pays, c'est l'avenir...`
+        response = `END La commande entrée n'est pas correct, e-Mobeko à votre service pour vous expliciter les textes juridique concernant le numérique en RD Congo...`
     }
 
     // Send the response back to the API
