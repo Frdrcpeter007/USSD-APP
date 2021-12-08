@@ -44,6 +44,8 @@ router.post('/ussd', (req, res) => {
       0. Voir la suite de la liste`;
     } else if (/^[1|2|3]\*\d+$/g.test(text)) {
 
+        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [];
+
         response = `CON Enoncé de la loi:
       "${tab.find(item => item.id == text.split('*')[1]).content}"
       
