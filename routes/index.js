@@ -15,7 +15,7 @@ router.post('/ussd', (req, res) => {
       text,
   } = req.body;
 
-  let tab = [{id: 1, title: "Article 1"}, {id: 2, title: "Article 2"}, {id: 3, title: "Article 3"}];
+  let tab = [{id: 1, title: "Article 1", content: "Ceci est l'article 1 du bail"}, {id: 2, title: "Article 2", content: "Ceci est l'article 2 du bail"}, {id: 3, title: "Article 3", content: "Ceci est l'article 3 du bail"}, {id: 4, title: "Article 4", content: "Ceci est l'article 4 du bail"}, {id: 5, title: "Article 5", content: "Ceci est l'article 5 du bail"}];
 
   console.log("sessionId", sessionId);
   console.log("serviceCode", serviceCode);
@@ -33,7 +33,8 @@ router.post('/ussd', (req, res) => {
       5. Contactez un juriste en droit du numérique`;
   } else if ( text == '1') {
       // Business logic for first level response
-      response = `CON Catégorie "Loi du Numérique
+      response = `CON Catégorie "Loi du Numérique"
+
       ${
             tab.map(item => `${item.id}. ${item.title}`).join('\n')
       }
@@ -41,7 +42,7 @@ router.post('/ussd', (req, res) => {
       0. Voir la suite de la liste`;
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
-  } else if (/^1\*\d+/g.test(text)) {
+  } else if (/^1\*\d+$/g.test(text)) {
      
       response = `CON Enoncé de la loi:
       "${tab.find(item => item.id == text.split('*')[1]).content}"
@@ -50,11 +51,12 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-  } else if ( text == '1*1*1' || text == '1*1*2') {
-    
-    response = `END Votre demande est en cours de traitement, nous vous enverons une explication par SMS`;
+  } else if (/^1\*\d+\*\d+$/g.test(text)) {
+      
+    let language = text.split('*')[2] == '1' ? 'Français' : 'Lingala';
+    response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
 
-  } else if ( text == '1*1*3') {
+  } else if (/^1\*\d+\*3$/g.test(text)) {
     response = `CON Donnez votre avis sur:
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
     
