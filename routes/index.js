@@ -63,8 +63,16 @@ router.post('/ussd', (req, res) => {
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
     
     Votre avis:`
+  } else if (/^1\*\d+\*3\*\w+$/g.test(text)) {
+    let review = text.split('*')[3];
+    response = `END Votre avis a bien été pris en compte. Merci pour votre contribution.
+    
+    Votre avis: "${review}"`;
+    
   } else {
-    response = `END Le numérique au coeur du pays, c'est l'avenir.`
+    response = `END La commande entrée ne repond pas
+    
+    Le numérique au coeur du pays, c'est l'avenir...`
   }
 
   // Send the response back to the API
