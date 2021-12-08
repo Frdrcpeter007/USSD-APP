@@ -24,7 +24,7 @@ router.post('/ussd', (req, res) => {
 
   if (text == '') {
       // This is the first request. Note how we start the response with CON
-      response = `CON Veuillez selectionner un service:
+      response = `CON Veuillez selectionner un service e-Mobeko:
       
       1. Consulter les lois
       2. Consulter les décrets 
@@ -41,7 +41,9 @@ router.post('/ussd', (req, res) => {
       
       0. Voir la suite de la liste`;
   } else if ( text == '2') {
+
       response = `END Your phone number is ${phoneNumber}`;
+
   } else if (/^1\*\d+$/g.test(text)) {
      
       response = `CON Enoncé de la loi:
@@ -52,7 +54,7 @@ router.post('/ussd', (req, res) => {
       3. Donnez votre avis`;
 
   } else if (/^1\*\d+\*\d+$/g.test(text)) {
-      
+
     let language = text.split('*')[2] == '1' ? 'Français' : 'Lingala';
     response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
 
@@ -61,6 +63,8 @@ router.post('/ussd', (req, res) => {
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
     
     Votre avis:`
+  } else {
+    response = `END Le numérique au coeur du pays, c'est l'avenir.`
   }
 
   // Send the response back to the API
