@@ -15,6 +15,8 @@ router.post('/ussd', (req, res) => {
       text,
   } = req.body;
 
+  console.log(text);
+
   let tab = [{id: 1, title: "Article 1", content: "Ceci est l'article 1"}, {id: 2, title: "Article 2", content: "Ceci est l'article 2"}, {id: 3, title: "Article 3", content: "Ceci est l'article 3"}];
 
   console.log("sessionId", sessionId);
@@ -25,7 +27,7 @@ router.post('/ussd', (req, res) => {
   if (text == '') {
       // This is the first request. Note how we start the response with CON
       response = `CON Veuillez selectionner un service:
-      
+
       1. Consulter les lois
       2. Consulter les décrets 
       3. Consulter les arrêtés
