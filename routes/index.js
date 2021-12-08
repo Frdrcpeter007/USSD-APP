@@ -65,7 +65,7 @@ router.post('/ussd', (req, res) => {
     "${tab.find(item => item.id == text.split('*')[1]).content}"
     
     Votre avis:`
-    } else if (/^[1|2|3]\*\d+\*3\*\w+$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*3\*\w+/g.test(text)) {
         let review = text.split('*')[3];
         response = `END Votre avis a bien été pris en compte. Merci pour votre contribution.
     
