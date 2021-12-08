@@ -25,6 +25,7 @@ router.post('/ussd', (req, res) => {
   if (text == '') {
       // This is the first request. Note how we start the response with CON
       response = `CON Veuillez selectionner un service:
+      
       1. Consulter les lois
       2. Consulter les décrets 
       3. Consulter les arrêtés
@@ -40,10 +41,10 @@ router.post('/ussd', (req, res) => {
       0. Voir la suite de la liste`;
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
-  } else if (/^1\*(1-9)/g.test(text)) {
+  } else if (/^1\*\d+/g.test(text)) {
      
       response = `CON Enoncé de la loi:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
+      "${tab.find(item => item.id == text.split('*')[1]).content}"
       
       1. Avoir explication (Français)
       2. Avoir explication (Lingala)
