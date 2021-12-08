@@ -42,7 +42,7 @@ router.post('/ussd', (req, res) => {
       ${tab.map(item => `${item.id}. ${item.title}`).join('\n')}
       
       0. Voir la suite de la liste`;
-    } else if (/^1\*\d+$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+$/g.test(text)) {
 
         response = `CON Enoncé de la loi:
       "${tab.find(item => item.id == text.split('*')[1]).content}"
@@ -51,17 +51,17 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-    } else if (/^1\*\d+\*\d+$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*\d+$/g.test(text)) {
 
         let language = text.split('*')[2] == '1' ? 'Français' : 'Lingala';
         response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
 
-    } else if (/^1\*\d+\*3$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*3$/g.test(text)) {
         response = `CON Donnez votre avis sur:
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
     
     Votre avis:`
-    } else if (/^1\*\d+\*3\*\w+$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*3\*\w+$/g.test(text)) {
         let review = text.split('*')[3];
         response = `END Votre avis a bien été pris en compte. Merci pour votre contribution.
     
@@ -70,7 +70,7 @@ router.post('/ussd', (req, res) => {
     } else {
         response = `END La commande entrée ne repond pas
     
-    Le numérique au coeur du pays, c'est l'avenir...`
+        Le numérique au coeur du pays, c'est l'avenir...`
     }
 
     // Send the response back to the API
