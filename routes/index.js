@@ -49,6 +49,10 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
+  } else if ( text == '1*1*1' || text == '1*1*2') {
+    
+    response = `END Votre demande est en cours de traitement, nous vous enverons une explication par SMS`;
+
   } else if ( text == '1*1*3') {
     response = `CON Donnez votre avis sur:
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
