@@ -93,7 +93,7 @@ router.post('/ussd', (req, res) => {
     
     Votre avis:`
     } else if (/^[1|2|3]\*\d+\*\d+\*3\*\w+/g.test(text)) {
-        let review = text.split('*')[3];
+        let review = text.split('*')[text.split('*').length - 1];
         response = `END Votre avis a bien été pris en compte. Merci pour votre contribution.
     
     Votre avis: "${review}"`;
