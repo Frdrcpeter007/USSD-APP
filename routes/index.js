@@ -25,6 +25,7 @@ router.post('/ussd', (req, res) => {
   if (text == '') {
       // This is the first request. Note how we start the response with CON
       response = `CON Veuillez selectionner un service:
+      
       1. Consulter les lois
       2. Consulter les décrets 
       3. Consulter les arrêtés
