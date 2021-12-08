@@ -40,7 +40,7 @@ router.post('/ussd', (req, res) => {
       0. Voir la suite de la liste`;
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
-  } else if ( /^1\*(1-9)+$/g.test(text)) {
+  } else if (/^1\*(1-9)/g.test(text)) {
      
       response = `CON Enoncé de la loi:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
