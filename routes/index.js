@@ -23,18 +23,18 @@ router.post('/ussd', (req, res) => {
             { id: 5, title: "Law 5", content: "Ceci est l'article 5 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }
         ],
         decret = [
-            { id: 1, title: "Décret 1", content: "Ceci est le décret 1 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] },
-            { id: 2, title: "Décret 2", content: "Ceci est le décret 2 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
-            { id: 3, title: "Décret 3", content: "Ceci est le décret 3 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
-            { id: 4, title: "Décret 4", content: "Ceci est le décret 4 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
-            { id: 5, title: "Décret 5", content: "Ceci est le décret 5 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }
+            { id: 1, title: "Décret 1", content: "Ceci est le décret 1 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] },
+            { id: 2, title: "Décret 2", content: "Ceci est le décret 2 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }, 
+            { id: 3, title: "Décret 3", content: "Ceci est le décret 3 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }, 
+            { id: 4, title: "Décret 4", content: "Ceci est le décret 4 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }, 
+            { id: 5, title: "Décret 5", content: "Ceci est le décret 5 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }
         ],
         arret = [
-            { id: 1, title: "Arrêté 1", content: "Ceci est l'arrêté 1 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
-            { id: 2, title: "Arrêté 2", content: "Ceci est l'arrêté 2 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
-            { id: 3, title: "Arrêté 3", content: "Ceci est l'arrêté 3 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
-            { id: 4, title: "Arrêté 4", content: "Ceci est l'arrêté 4 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}, 
-            { id: 5, title: "Arrêté 5", content: "Ceci est l'arrêté 5 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là'}]}
+            { id: 1, title: "Arrêté 1", content: "Ceci est l'arrêté 1 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
+            { id: 2, title: "Arrêté 2", content: "Ceci est l'arrêté 2 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
+            { id: 3, title: "Arrêté 3", content: "Ceci est l'arrêté 3 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
+            { id: 4, title: "Arrêté 4", content: "Ceci est l'arrêté 4 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
+            { id: 5, title: "Arrêté 5", content: "Ceci est l'arrêté 5 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}
         ];
 
     let response = '';
