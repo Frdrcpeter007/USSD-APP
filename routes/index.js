@@ -15,6 +15,8 @@ router.post('/ussd', (req, res) => {
       text,
   } = req.body;
 
+  let tab = [{id: 1, title: "Article 1"}, {id: 2, title: "Article 2"}, {id: 3, title: "Article 3"}];
+
   console.log("sessionId", sessionId);
   console.log("serviceCode", serviceCode);
 
@@ -31,17 +33,15 @@ router.post('/ussd', (req, res) => {
   } else if ( text == '1') {
       // Business logic for first level response
       response = `CON Catégorie "Loi du Numérique
-      1. Loi 1
-      2. Loi 2
-      3. Loi 3
-      4. Loi 4
-      5. Loi 5
+      ${
+            tab.map(item => `${item.id}. ${item.title}`).join('\n')
+      }
       
       0. Voir la suite de la liste`;
   } else if ( text == '2') {
       response = `END Your phone number is ${phoneNumber}`;
-  } else if ( text == '1*1') {
-     
+  } else if (/^1\*(1-9)*/g.test(text) ) {
+     console.log(text);
       response = `CON Enoncé de la loi:
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
       
