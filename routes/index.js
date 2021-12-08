@@ -15,7 +15,7 @@ router.post('/ussd', (req, res) => {
       text,
   } = req.body;
 
-  let tab = [{id: 1, title: "Article 1"}, {id: 2, title: "Article 2"}, {id: 3, title: "Article 3"}];
+  let tab = [{id: 1, title: "Article 1", content: "Ceci est l'article 1"}, {id: 2, title: "Article 2", content: "Ceci est l'article 2"}, {id: 3, title: "Article 3", content: "Ceci est l'article 3"}];
 
   console.log("sessionId", sessionId);
   console.log("serviceCode", serviceCode);
@@ -43,8 +43,8 @@ router.post('/ussd', (req, res) => {
   } else if (/^1\*(1-9)*/g.test(text) ) {
      console.log(text);
       response = `CON Enoncé de la loi:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae."
-      
+      "${tab.find(item => item.id == text.split('*')[1]).content}"
+
       1. Avoir explication (Français)
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
