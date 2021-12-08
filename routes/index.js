@@ -54,15 +54,15 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-  } else if (text == '1*1*1' ) {
+  } else if (/^1\*(1-9)\*1/g.test(text)) {
 
     response = `END Votre est en cours de traitement, nous vous enverrons très bien des explications de cette loi en Français`;
 
-  } else if (text == '1*1*2' ) {
+  } else if (/^1\*(1-9)\*2/g.test(text) ) {
 
     response = `END Votre est en cours de traitement, nous vous enverrons très bien des explications de cette loi en Lingala`;
 
-  } else if ( text == '1*1*3') {
+  } else if ( /^1\*(1-9)\*3/g.test(text)) {
     response = `CON Donnez votre avis sur:
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse nesciunt laboriosam repudiandae.
     
