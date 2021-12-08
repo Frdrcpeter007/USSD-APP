@@ -79,19 +79,20 @@ router.post('/ussd', (req, res) => {
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-    } else if (/^[1|2|3]\*\d+\*[1|2]$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*\d+\*[1|2]$/g.test(text)) {
 
-        let language = text.split('*')[2] == '1' ? 'Français' : 'Lingala';
+        let language = text.split('*')[3] == '1' ? 'Français' : 'Lingala';
         response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
 
-    } else if (/^[1|2|3]\*\d+\*3$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*\d+\*3$/g.test(text)) {
 
-        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [];
+        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [],
+            articles = tab[parseInt(text[0])].articles;
         response = `CON Donnez votre avis sur:
-    "${tab.find(item => item.id == text.split('*')[1]).content}"
+    "${tab.find(item => item.id == text.split('*')[2]).content}"
     
     Votre avis:`
-    } else if (/^[1|2|3]\*\d+\*3\*\w+/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*\d+\*3\*\w+/g.test(text)) {
         let review = text.split('*')[3];
         response = `END Votre avis a bien été pris en compte. Merci pour votre contribution.
     
