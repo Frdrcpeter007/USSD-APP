@@ -5,5 +5,5 @@ Content-Type: application/json
   "sessionId": "12345",
   "serviceCode": "*123#",
   "phoneNumber": "+243814978651",
-  "text": "1"
+  "text": "1*1*1*4"
 }

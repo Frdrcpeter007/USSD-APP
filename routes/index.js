@@ -17,12 +17,7 @@ router.post('/ussd', async (req, res) => {
         text,
     } = req.body;
 
-    let law = await getData("/texte/1"),
-        decret = await getData("/texte/2"),
-        arret = await getData("/texte/3");
 
-    console.log(text);
-    console.log(law.data[0].Article);
     let response = '';
 
     if (text == '') {
@@ -36,41 +31,53 @@ router.post('/ussd', async (req, res) => {
       5. Contactez un juriste en droit du numérique`;
 
     } else if (/^[1|2|3]$/g.test(text)) {
-        let tab = text == '1' ? law.data : text == '2' ? decret.data : text == '3' ? arret.data : [];
+        let tab = await getData(`texte/${text}`);
         let category = text == '1' ? "Lois" : text == '2' ? "Décrets" : "Arrêtés";
         response = `CON Catégorie "${category} du Numérique"
 
-      ${tab.map(item => `${item.id}. ${item.titre}`).join('\n\n')}
+      ${tab.data.map(item => `${item.id}. ${item.titre}`).join('\n\n')}
       
       0. Voir la suite de la liste`;
     } else if (/^[1|2|3]\*\d+$/g.test(text)) {
+        let num = text.split('*')[text.split('*').length - 1],
+            chapitre = await getData(`/chapitre/list/text/ussd/${num}`);
 
-        let tab = text[0] == '1' ? law.data : text[0] == '2' ? decret.data : text[0] == '3' ? arret.data : [],
-            articles = tab[parseInt(text[0])].Article;
-        response = `CON Enoncé de la loi:
+        response = `CON Liste des chapitre:
 
-        ${articles.map(item => `${item.id}. ${item.titre}`).join('\n')}
+        ${chapitre.data.map(item => `${item.id}. ${item.titre}`).join('\n\n')}
         
         0. Voir la suite de la liste`;
 
     } else if (/^[1|2|3]\*\d+\*\d+$/g.test(text)) {
+        let num = text.split('*')[text.split('*').length - 1],
+            chapitre = await getData(`/chapitre/list/article/${num}`);
 
-        let tab = text[0] == '1' ? law.data : text[0] == '2' ? decret.data : text[0] == '3' ? arret.data : [],
-            articles = tab[parseInt(text[0])].articles;
+        response = `CON Liste des articles:
 
-        response = `CON Enoncé de la loi:
-      "${articles.find(item => item.id == text.split('*')[2]).description}"
+        ${chapitre.data[0].Article.map(item => `${item.id}. ${item.titre}`).join('\n\n')}
+        
+        0. Voir la suite de la liste`;
+
+    } 
+    
+    else if (/^[1|2|3]\*\d+\*\d+\*\d+$/g.test(text)) {
+
+        let num = text.split('*')[text.split('*').length - 1],
+            article = await getData(`article/${num}`);
+
+        response = `CON Enoncé de l'article:
+      "${article.data.titre}"
       
       1. Avoir explication (Français)
       2. Avoir explication (Lingala)
       3. Donnez votre avis`;
 
-    } else if (/^[1|2|3]\*\d+\*\d+\*[1|2]$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*\d+\*\d+\*[1|2]$/g.test(text)) {
 
         let language = text.split('*')[3] == '1' ? 'Français' : 'Lingala';
         response = `END Votre demande est en cours de traitement, nous vous enverons une explication en ${language} par SMS`;
 
-    } else if (/^[1|2|3]\*\d+\*\d+\*3$/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*\d+\*\d+\*3$/g.test(text)) {
 
         let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [],
             articles = tab[parseInt(text[0])].articles;
@@ -78,7 +85,7 @@ router.post('/ussd', async (req, res) => {
     "${tab.find(item => item.id == text.split('*')[2]).content}"
     
     Votre avis:`
-    } else if (/^[1|2|3]\*\d+\*\d+\*3\*\w+/g.test(text)) {
+    } else if (/^[1|2|3]\*\d+\*\d+\*\d+\*3\*\w+/g.test(text)) {
         let review = text.split('*')[text.split('*').length - 1];
         response = `END Votre avis a bien été pris en compte. Merci pour votre contribution.
     
