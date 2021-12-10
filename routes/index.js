@@ -31,7 +31,7 @@ router.post('/ussd', async (req, res) => {
       5. Contactez un juriste en droit du numérique`;
 
     } else if (/^[1|2|3]$/g.test(text)) {
-        let tab = await getData(`texte/${text}`, res);
+        let tab = await getData(`texte/${text}`);
         let category = text == '1' ? "Lois" : text == '2' ? "Décrets" : "Arrêtés";
         response = `CON Catégorie "${category} du Numérique"
 
@@ -40,7 +40,7 @@ router.post('/ussd', async (req, res) => {
       0. Voir la suite de la liste`;
     } else if (/^[1|2|3]\*\d+$/g.test(text)) {
         let num = text.split('*')[text.split('*').length - 1],
-            chapitre = await getData(`/chapitre/list/text/ussd/${num}`, res);
+            chapitre = await getData(`/chapitre/list/text/ussd/${num}`);
 
         response = `CON Liste des chapitre:
 
@@ -50,7 +50,7 @@ router.post('/ussd', async (req, res) => {
 
     } else if (/^[1|2|3]\*\d+\*\d+$/g.test(text)) {
         let num = text.split('*')[text.split('*').length - 1],
-            chapitre = await getData(`/chapitre/list/article/${num}`, res);
+            chapitre = await getData(`/chapitre/list/article/${num}`);
 
         response = `CON Liste des articles:
 
@@ -63,7 +63,7 @@ router.post('/ussd', async (req, res) => {
     else if (/^[1|2|3]\*\d+\*\d+\*\d+$/g.test(text)) {
 
         let num = text.split('*')[text.split('*').length - 1],
-            article = await getData(`article/${num}`, res);
+            article = await getData(`article/${num}`);
 
         response = `CON Enoncé de l'article:
       "${article.data.titre}"
@@ -80,7 +80,7 @@ router.post('/ussd', async (req, res) => {
     } else if (/^[1|2|3]\*\d+\*\d+\*\d+\*3$/g.test(text)) {
 
         let num = text.split('*')[text.split('*').length - 2],
-            article = await getData(`article/${num}`, res);
+            article = await getData(`article/${num}`);
         response = `CON Donnez votre avis sur:
     "${article.data.titre}"
     
@@ -132,12 +132,7 @@ router.post('/ussd', async (req, res) => {
 });
 
 
-function response(res, response) {
-    res.set('Content-Type: text/plain');
-    res.send(response);
-}
-
-async function getData(url, res) {
+async function getData(url) {
     try {
        let res = await axios({
             url: `${API}/${url}`,
@@ -147,20 +142,15 @@ async function getData(url, res) {
                 'Content-Type': 'application/json',
             }
         })
-
-        console.log(res.status)
-
-        if(res.data.state){
-            return res.data
-        }   
-
-        res.set('Content-Type: text/plain');
-        res.send("END Une erreur dans la requête est survenue, veuillez réessayer plus tard");
-
+        if(res.status == 200){
+            // test for status you want, etc
+            console.log(res.status)
+        }    
+        // Don't forget to return something   
+        return res.data
     }
     catch (err) {
-        res.set('Content-Type: text/plain');
-        res.send("END Une erreur dans la requête est survenue, veuillez réessayer plus tard");
+        console.error(err);
     }
 }
 
