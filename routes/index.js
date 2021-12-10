@@ -127,7 +127,8 @@ router.post('/ussd', async (req, res) => {
     }
 
     // Send the response back to the API
-    response(res, response);
+    res.set('Content-Type: text/plain');
+    res.send(response);
 });
 
 
@@ -148,7 +149,7 @@ async function getData(url, res) {
         })
 
         console.log(res.status)
-        
+
         if(res.data.state){
             return res.data
         }   
