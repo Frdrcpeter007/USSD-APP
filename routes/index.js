@@ -21,6 +21,7 @@ router.post('/ussd', async (req, res) => {
         decret = await getData("/texte/2"),
         arret = await getData("/texte/3");
 
+    console.log(text);
     console.log(law.data[0].Article);
     let response = '';
 
