@@ -21,6 +21,7 @@ router.post('/ussd', async (req, res) => {
         decret = await getData("/texte/2"),
         arret = await getData("/texte/3");
 
+    console.log(law.data[0].Article);
     let response = '';
 
     if (text == '') {
@@ -34,7 +35,7 @@ router.post('/ussd', async (req, res) => {
       5. Contactez un juriste en droit du numérique`;
 
     } else if (/^[1|2|3]$/g.test(text)) {
-        let tab = text == '1' ? law.data : text == '2' ? decret : text == '3' ? arret : [];
+        let tab = text == '1' ? law.data : text == '2' ? decret.data : text == '3' ? arret.data : [];
         let category = text == '1' ? "Lois" : text == '2' ? "Décrets" : "Arrêtés";
         response = `CON Catégorie "${category} du Numérique"
 
@@ -43,21 +44,21 @@ router.post('/ussd', async (req, res) => {
       0. Voir la suite de la liste`;
     } else if (/^[1|2|3]\*\d+$/g.test(text)) {
 
-        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [],
-            articles = tab[parseInt(text[0])].articles;
+        let tab = text[0] == '1' ? law.data : text[0] == '2' ? decret.data : text[0] == '3' ? arret.data : [],
+            articles = tab[parseInt(text[0])].Article;
         response = `CON Enoncé de la loi:
 
-        ${articles.map(item => `${item.id}. ${item.title}`).join('\n')}
+        ${articles.map(item => `${item.id}. ${item.titre}`).join('\n')}
         
         0. Voir la suite de la liste`;
 
     } else if (/^[1|2|3]\*\d+\*\d+$/g.test(text)) {
 
-        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [],
+        let tab = text[0] == '1' ? law.data : text[0] == '2' ? decret.data : text[0] == '3' ? arret.data : [],
             articles = tab[parseInt(text[0])].articles;
 
         response = `CON Enoncé de la loi:
-      "${articles.find(item => item.id == text.split('*')[2]).content}"
+      "${articles.find(item => item.id == text.split('*')[2]).description}"
       
       1. Avoir explication (Français)
       2. Avoir explication (Lingala)
