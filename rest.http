@@ -1,0 +1,9 @@
+POST http://localhost:3000/ussd
+Content-Type: application/json
+
+{
+  "sessionId": "12345",
+  "serviceCode": "*123#",
+  "phoneNumber": "+243814978651",
+  "text": "1"
+}

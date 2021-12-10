@@ -1,12 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const API = process.env.API_URL;
+const axios = require('axios').default;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
-router.post('/ussd', (req, res) => {
+router.post('/ussd', async (req, res) => {
     // Read the variables sent via POST from our API
     const {
         sessionId,
@@ -15,27 +17,9 @@ router.post('/ussd', (req, res) => {
         text,
     } = req.body;
 
-    let law = [
-            { id: 1, title: "Law 1", content: "Ceci est l'article 1 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
-            { id: 2, title: "Law 2", content: "Ceci est l'article 2 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] },
-            { id: 3, title: "Law 3", content: "Ceci est l'article 3 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
-            { id: 4, title: "Law 4", content: "Ceci est l'article 4 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }, 
-            { id: 5, title: "Law 5", content: "Ceci est l'article 5 du bail", articles: [{ id: 1, title: 'Article 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Article 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Article 3', content: 'Le contenu du bail là' }] }
-        ],
-        decret = [
-            { id: 1, title: "Décret 1", content: "Ceci est le décret 1 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] },
-            { id: 2, title: "Décret 2", content: "Ceci est le décret 2 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }, 
-            { id: 3, title: "Décret 3", content: "Ceci est le décret 3 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }, 
-            { id: 4, title: "Décret 4", content: "Ceci est le décret 4 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }, 
-            { id: 5, title: "Décret 5", content: "Ceci est le décret 5 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là' }, { id: 3, title: 'Alinéa 3', content: 'Le contenu du bail là' }] }
-        ],
-        arret = [
-            { id: 1, title: "Arrêté 1", content: "Ceci est l'arrêté 1 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
-            { id: 2, title: "Arrêté 2", content: "Ceci est l'arrêté 2 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
-            { id: 3, title: "Arrêté 3", content: "Ceci est l'arrêté 3 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
-            { id: 4, title: "Arrêté 4", content: "Ceci est l'arrêté 4 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}, 
-            { id: 5, title: "Arrêté 5", content: "Ceci est l'arrêté 5 du bail", articles: [{ id: 1, title: 'Alinéa 1', content: 'Le contenu du bail là' }, { id: 2, title: 'Alinéa 2', content: 'Le contenu du bail là'}]}
-        ];
+    let law = await getData("/texte/1"),
+        decret = await getData("/texte/2"),
+        arret = await getData("/texte/3");
 
     let response = '';
 
@@ -50,11 +34,11 @@ router.post('/ussd', (req, res) => {
       5. Contactez un juriste en droit du numérique`;
 
     } else if (/^[1|2|3]$/g.test(text)) {
-        let tab = text == '1' ? law : text == '2' ? decret : text == '3' ? arret : [];
+        let tab = text == '1' ? law.data : text == '2' ? decret : text == '3' ? arret : [];
         let category = text == '1' ? "Lois" : text == '2' ? "Décrets" : "Arrêtés";
         response = `CON Catégorie "${category} du Numérique"
 
-      ${tab.map(item => `${item.id}. ${item.title}`).join('\n')}
+      ${tab.map(item => `${item.id}. ${item.titre}`).join('\n')}
       
       0. Voir la suite de la liste`;
     } else if (/^[1|2|3]\*\d+$/g.test(text)) {
@@ -137,5 +121,28 @@ router.post('/ussd', (req, res) => {
     res.set('Content-Type: text/plain');
     res.send(response);
 });
+
+
+async function getData(url) {
+    try {
+       let res = await axios({
+            url: `${API}/${url}`,
+            method: 'get',
+            timeout: 8000,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        if(res.status == 200){
+            // test for status you want, etc
+            console.log(res.status)
+        }    
+        // Don't forget to return something   
+        return res.data
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
 
 module.exports = router;
