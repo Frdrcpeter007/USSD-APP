@@ -79,10 +79,10 @@ router.post('/ussd', async (req, res) => {
 
     } else if (/^[1|2|3]\*\d+\*\d+\*\d+\*3$/g.test(text)) {
 
-        let tab = text[0] == '1' ? law : text[0] == '2' ? decret : text[0] == '3' ? arret : [],
-            articles = tab[parseInt(text[0])].articles;
+        let num = text.split('*')[text.split('*').length - 2],
+            article = await getData(`article/${num}`);
         response = `CON Donnez votre avis sur:
-    "${tab.find(item => item.id == text.split('*')[2]).content}"
+    "${article.data.titre}"
     
     Votre avis:`
     } else if (/^[1|2|3]\*\d+\*\d+\*\d+\*3\*\w+/g.test(text)) {
