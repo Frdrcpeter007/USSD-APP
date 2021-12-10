@@ -127,12 +127,16 @@ router.post('/ussd', async (req, res) => {
     }
 
     // Send the response back to the API
-    res.set('Content-Type: text/plain');
-    res.send(response);
+    response(res, response);
 });
 
 
-async function getData(url) {
+function response(res, response) {
+    res.set('Content-Type: text/plain');
+    res.send(response);
+}
+
+async function getData(url, res) {
     try {
        let res = await axios({
             url: `${API}/${url}`,
@@ -142,15 +146,19 @@ async function getData(url) {
                 'Content-Type': 'application/json',
             }
         })
-        if(res.status == 200){
-            // test for status you want, etc
-            console.log(res.status)
-        }    
-        // Don't forget to return something   
-        return res.data
+
+        console.log(res.status)
+        
+        if(res.data.state){
+            return res.data
+        }   
+
+        response(res, "END Une erreur dans la requête est survenue, veuillez réessayer plus tard");
+
     }
     catch (err) {
         console.error(err);
+        response(res, "END Une erreur dans la requête est survenue, veuillez réessayer plus tard");
     }
 }
 
