@@ -39,7 +39,7 @@ router.post('/ussd', async (req, res) => {
         let category = text == '1' ? "Lois" : text == '2' ? "Décrets" : "Arrêtés";
         response = `CON Catégorie "${category} du Numérique"
 
-      ${tab.map(item => `${item.id}. ${item.titre}`).join('\n')}
+      ${tab.map(item => `${item.id}. ${item.titre}`).join('\n\n')}
       
       0. Voir la suite de la liste`;
     } else if (/^[1|2|3]\*\d+$/g.test(text)) {
